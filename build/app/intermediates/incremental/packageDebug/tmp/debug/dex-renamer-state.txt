@@ -1,0 +1,4 @@
+#Sat Oct 06 19:04:29 EET 2018
+base.0=/opt/APP/flutter/examples/chat/build/app/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex

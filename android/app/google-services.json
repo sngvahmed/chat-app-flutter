@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "596211433136",
+    "firebase_url": "https://orangechatapp.firebaseio.com",
+    "project_id": "orangechatapp",
+    "storage_bucket": "orangechatapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596211433136:android:b0b97cb8192b31ab",
+        "android_client_info": {
+          "package_name": "com.example.orangechat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596211433136-nt5q2vsaie2aefnq071p68f0be50ftkg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdkEhn7zuzJjsc49mfcFndYhTbukJ6-T0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

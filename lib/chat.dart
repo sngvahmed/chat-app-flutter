@@ -14,24 +14,26 @@ Container buildtextListChat(DocumentSnapshot word) {
   return Container(
     padding: EdgeInsets.all(10.0),
     child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-     children: <Widget>[
-         Text(word["name"], textDirection: TextDirection.ltr, style: TextStyle(
-              color: Colors.orange,
-              fontSize: 15.0
-         ),), 
-         Text(word["msg"], textDirection: TextDirection.ltr, style: TextStyle(
-              color: Colors.black,
-              fontSize: 20.0
-         ))
-     ],
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          word["name"],
+          textDirection: TextDirection.ltr,
+          style: TextStyle(color: Colors.orange, fontSize: 15.0),
+        ),
+        Text(word["msg"],
+            textDirection: TextDirection.ltr,
+            style: TextStyle(color: Colors.black, fontSize: 20.0))
+      ],
     ),
   );
 }
 
 class ChatScreen extends State<ListDisplay> {
   final textController = TextEditingController();
-  CollectionReference dbReplies = Firestore.instance.collection('public_channel');
+  String name;
+  CollectionReference dbReplies =
+      Firestore.instance.collection('public_channel');
 
   String generateRandomName() {
     var rng = new Random();
@@ -46,12 +48,14 @@ class ChatScreen extends State<ListDisplay> {
   StreamBuilder buildMessaegList() {
     var stream = StreamBuilder(
       stream: dbReplies.snapshots(),
+      
       builder: (context, snapshot) {
         if (!snapshot.hasData) return Text("Loading ....");
         return ListView.builder(
           itemCount: snapshot.data.documents.length,
-          itemBuilder: (BuildContext ctxt, int Index) =>
-              buildtextListChat(snapshot.data.documents[snapshot.data.documents.length - Index - 1]),
+          itemBuilder: (BuildContext ctxt, int Index) => buildtextListChat(
+              snapshot
+                  .data.documents[Index]),
         );
       },
     );
@@ -61,13 +65,16 @@ class ChatScreen extends State<ListDisplay> {
   TextField buildChatTextInput() {
     return TextField(
       controller: textController,
+      autofocus: false,
       onSubmitted: (text) {
-        PublicChannelMsg publicMsg = PublicChannelMsg(generateRandomName(), text);
+          if(name == null) name = generateRandomName();
+                PublicChannelMsg publicMsg =
+                    PublicChannelMsg(name, text);
         print("name: " + publicMsg.name + "with message: " + publicMsg.msg);
         Firestore.instance.runTransaction((Transaction tx) async {
           var _result = await dbReplies.add(publicMsg.toJson());
-          textController.clear();
           setState(() {});
+          textController.clear();
         });
       },
     );

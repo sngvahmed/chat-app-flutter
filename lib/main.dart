@@ -4,23 +4,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:english_words/english_words.dart';
-import './screens/home.dart';
-
-void main() => runApp(ChatApp());
+import 'package:hello_world/screens/app.bar.dart';
 
 
-class ChatApp extends StatelessWidget {
-  var chatAppBar = Scaffold(
-    appBar: AppBar(title: Text("Chat App")),
-    body: Home()
-  );
+void main() => runApp(ChatAppBar());
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Hello Chat App",
-      home: chatAppBar,
-    );
-  }
-}
+

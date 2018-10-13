@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:596211433136:android:b0b97cb8192b31ab",
         "android_client_info": {
-          "package_name": "com.example.orangechat"
+          "package_name": "my.orangechat"
         }
       },
       "oauth_client": [

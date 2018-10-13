@@ -1,4 +1,4 @@
-package com.example.orangechat;
+package my.orangechat;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

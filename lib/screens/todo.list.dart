@@ -23,9 +23,12 @@ class TodoListState extends State {
         return Scaffold(
             body: todlistItem(),
             floatingActionButton: FloatingActionButton(
-                onPressed: null,
+                onPressed: (){
+                	this.navigateToTodo(Todo(DateTime.now().toString(), 1, "", ""));
+                },
                 tooltip: 'A',
                 child: new Icon(Icons.add),
+
             ),
         );
     }
@@ -54,6 +57,7 @@ class TodoListState extends State {
 
     void navigateToTodo(Todo todo) async {
         var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => TodoDetails(todo)));
+        getData();
     }
 
     Color getColorPriority(int priority) {
@@ -68,17 +72,17 @@ class TodoListState extends State {
     }
 
     void getData() {
+	    todoList = [];
         final dbFuture = dbHelper.initializeDb();
         dbFuture.then((result) {
             dbHelper.getTodos().then((todos) {
                 for (int i = 0; i < todos.length; i++) {
                     todoList.add(Todo.fromObject(todos[i]));
-                    debugPrint(todoList[i].title);
-                    setState(() {
-                        todos = todoList;
-                        count = todoList.length;
-                    });
                 }
+                setState(() {
+	                todos = todoList;
+	                count = todoList.length;
+                });
             });
         });
     }

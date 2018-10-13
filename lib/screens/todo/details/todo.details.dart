@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:orangechat/model/todo.dart';
 import 'package:orangechat/util/dbhelper.dart';
 import 'package:intl/intl.dart';
+import 'package:orangechat/screens/todo/details/todo.deatils.service.dart';
 
 DBHelper dbHelper = DBHelper();
 final List<String> menuChoices = const <String> [
@@ -21,6 +22,7 @@ class TodoDetails extends StatefulWidget {
 }
 
 class TodoDetailsState extends State {
+	TodoDetailService todoDetailService;
     Todo todo;
     final _priorities = ["High", "Medium", "Low"];
     var _priority = "Low";
@@ -59,7 +61,7 @@ class TodoDetailsState extends State {
 
     List<Widget> buildActionMenu() {
         return <Widget>[PopupMenuButton<String>(
-            onSelected: selectMenu,
+            onSelected: this.todoDetailService.selectMenu,
             itemBuilder: (BuildContext bcontxt){
                 return menuChoices.map((String choice) {
                     return PopupMenuItem<String>(
@@ -69,41 +71,6 @@ class TodoDetailsState extends State {
                 }).toList();
             },
         )];
-    }
-
-    void selectMenu(String value) async {
-        int result;
-        switch(value){
-            case menuSave:
-                result = await saveMenuAction();
-                Navigator.pop(context, true);
-                break;
-            case menuBack:
-	            Navigator.pop(context, true);
-                break;
-            case menuDelete:
-	            Navigator.pop(context, true);
-                if (todo.id == null) return;
-                result = await this.deleteActionMenu();
-                break;
-        }
-    }
-
-     deleteActionMenu() async {
-	    int result = await dbHelper.deleteTodo(todo);
-	    if (result != 0) {
-		    showDialog(context: context, builder: (_) => AlertDialog(
-			    title: Text("Delete Todo"),
-			    content: Text("todo has been deleted"),
-		    ));
-	    }
-	    return await result;
-    }
-
-    saveMenuAction() async {
-        todo.date = DateFormat.yMd().format(DateTime.now());
-        if (todo.id != null) { dbHelper.update(todo); return 1; }
-        return await dbHelper.insertTodo(todo);
     }
 
     void updatePrioirty(String value) {
@@ -131,6 +98,7 @@ class TodoDetailsState extends State {
 
     @override
     Widget build(BuildContext context) {
+    	this.todoDetailService = TodoDetailService(context, todo, dbHelper);
         titleCtrl.text = todo.title;
         descriptionCtrl.text = todo.description;
         TextStyle textStyle = Theme.of(context).textTheme.title;

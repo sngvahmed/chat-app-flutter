@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:orangechat/screens/todo.list.dart';
+import 'package:orangechat/screens/todo/todo.list.dart';
 
 void main() => runApp(TodoApp());
 

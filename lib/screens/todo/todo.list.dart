@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:orangechat/util/dbhelper.dart';
 import 'package:orangechat/model/todo.dart';
-import 'package:orangechat/screens/todo.details.dart';
+import 'package:orangechat/screens/todo/details/todo.details.dart';
+import 'package:orangechat/screens/todo/details/todo.deatils.service.dart';
 
 class TodoList extends StatefulWidget {
     @override
